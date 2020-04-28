@@ -1,0 +1,8 @@
+<svg:g app-ring-circle
+  [ring]="ring"
+  [border_width]="border_width"
+/>
+<svg:g app-ring-text *ngIf="ring && ring.has_text"
+  [ring]="ring"
+  [ringWidth]="ringWidth"
+/>

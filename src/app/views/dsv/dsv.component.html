@@ -1,0 +1,13 @@
+<!-- <div fxLayout="row warp" fxLayoutAlign="space-evenly strech" fxLayoutGap="1vmin grid">
+  <div [fxFlex]="width" [ngStyle]="{'height': height}" *ngFor="let line of lines | keyvalue">
+    <app-dsc-mini  *ngIf="line.value" [session]="line.value"></app-dsc-mini>
+  </div>
+</div> -->
+
+
+<!-- <p>w: {{fullWidth}}/ h: {{fullHeight}}/ q: {{fullWidth/fullHeight}}</p>
+<p>w: {{width}}/ h: {{height}}</p> -->
+
+<div class="line" [ngStyle]="{'height': height, 'width': width, 'float': 'left'}" *ngFor="let line of lines | keyvalue">
+  <app-dsc-mini class="test" *ngIf="line.value.online" [session]="line.value.cache.setData" [mode]="mode"></app-dsc-mini>
+</div>
