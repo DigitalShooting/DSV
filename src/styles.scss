@@ -23,7 +23,7 @@ html, body {
 
 @media only screen and (max-width: 599px) {
  html {
-	 height: 600px;
+	 // height: 600px;
 	 overflow: auto;
  }
 }
@@ -45,7 +45,7 @@ html, body {
 
 
 .line {
-	margin: 0.25vh 0.25vw 0.25vh 0.25vw;
+	// margin: 0.25vh 0.25vw 0.25vh 0.25vw;
 }
 
 .line > .test {
@@ -67,6 +67,7 @@ html, body {
 
 .dsc-mini {
   padding: 0.25vh 0.25vw 0.25vh 0.25vw;
+	padding: 0.25vmin 0.25vmin 0.25vmin 0.25vmin;
 }
 
 .dsc-mini > div {

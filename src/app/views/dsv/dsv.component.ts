@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostBinding } from '@angular/core';
 
 import { DsvApiService } from "../../dsv-api.service";
 import { Session, Target, Serie, DSCLine } from "../../classes/session";
@@ -17,6 +17,8 @@ export class DSVComponent implements OnInit {
   width: string;
   height: string;
   mode: string;
+  
+  @HostBinding("style.--some-var") private fontCorrection: string;
 
   // calcXY() {
   //   if (this.lines == null) { return; }
@@ -50,12 +52,12 @@ export class DSVComponent implements OnInit {
   calcXY() {
     if (this.lines == null) { return; }
     
-    const items = 12;//Object.keys(this.lines).length;
+    const items = Object.keys(this.lines).length;
     
     // diff ratio of the window, 1.0 if its exactly 16/9 (which the page
     // was designed for), bigger if the width is bigger than the height
     // (in ratio to 16/9), or otherwise for smaller than 1.0.
-    var ratioDiff = this.fullWidth/this.fullHeight * 9/16;
+    var ratioDiff = this.fullWidth/this.fullHeight * 12/16;
 
     // the number of items in a row will be count(items)^(0.45*ratioDiff)
     // var x = Math.round( Math.pow(items, 0.45 * ratioDiff));
@@ -72,10 +74,13 @@ export class DSVComponent implements OnInit {
     //   height: this.fullHeight/y,
     // };
 
-    this.width = (98 / x) + "%";
-    this.height =  (98 / y) + "%";
+    this.width = (100 / x) + "%";
+    this.height =  (100 / y) + "%";
     this.mode = "landscape";
-    // this.mode = ratioDiff >= 1 ? "landscape" : "portrait";
+    
+    this.fontCorrection = "7vmin";
+    // document.documentElement.style.setProperty("--font-size-big",  (1/Math.pow(items,0.5) * 15) + "vmin");
+    // this.mode = x > y ? "landscape" : "portrait";
     // this.mode = tmpItemSize.width < 1.5*tmpItemSize.height ? "portrait" : "landscape";
     console.log("xy", this.fullWidth, this.fullHeight, this.width, this.height);
   }
@@ -113,6 +118,10 @@ export class DSVComponent implements OnInit {
         this.lines["standTest0003"] = this.lines["standTest1"];
         this.lines["standTest0004"] = this.lines["standTest6"];
         this.lines["standTest0005"] = this.lines["standTest6"];
+        
+        // this.lines["standTest001003"] = this.lines["standTest1"];
+        // this.lines["standTest00004"] = this.lines["standTest6"];
+        // this.lines["standTest00005"] = this.lines["standTest6"];
       }
       this.calcXY();
       // this.lines = Object.keys(data).map(key => {

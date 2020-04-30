@@ -8,6 +8,8 @@
 <!-- <p>w: {{fullWidth}}/ h: {{fullHeight}}/ q: {{fullWidth/fullHeight}}</p>
 <p>w: {{width}}/ h: {{height}}</p> -->
 
+
+
 <div class="line" [ngStyle]="{'height': height, 'width': width, 'float': 'left'}" *ngFor="let line of lines | keyvalue">
   <app-dsc-mini class="test" *ngIf="line.value.online" [session]="line.value.cache.setData" [mode]="mode"></app-dsc-mini>
 </div>
