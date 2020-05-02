@@ -52,8 +52,13 @@ export class DsvApiService {
           console.log("aaa", message.data.lines)
 				}
         else if (message.type == "delta") {
-          this._lines[message.data.line].cache.setData = message.data.data;
-				}
+          if (this._lines[message.data.line] != null) {
+            this._lines[message.data.line].cache.setData = message.data.data;
+				  }
+          else {
+            // TODO request full
+          }
+        }
         else if (message.type == "disconnect") {
           delete this._lines[message.data.lineID]
 				}

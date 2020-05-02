@@ -49,6 +49,43 @@ export class DSVComponent implements OnInit {
   //   console.log("xy", this.fullWidth, this.fullHeight, this.width, this.height);
   // }
   
+  // calcXY() {
+  //   if (this.lines == null) { return; }
+  // 
+  //   const items = Object.keys(this.lines).length;
+  // 
+  //   // diff ratio of the window, 1.0 if its exactly 16/9 (which the page
+  //   // was designed for), bigger if the width is bigger than the height
+  //   // (in ratio to 16/9), or otherwise for smaller than 1.0.
+  //   var ratioDiff = this.fullWidth/this.fullHeight * 11/16;
+  // 
+  //   // the number of items in a row will be count(items)^(0.45*ratioDiff)
+  //   // var x = Math.round( Math.pow(items, 0.45 * ratioDiff));
+  //   var x = Math.round(2 * ratioDiff*2);
+  //   if (x < 2) x = 2;
+  // 
+  //   // fix possible bigger x than items
+  //   if (x > items) x = items;
+  // 
+  //   var y = Math.ceil( items / x);
+  // 
+  //   // var tmpItemSize = {
+  //   //   width: this.fullWidth/x,
+  //   //   height: this.fullHeight/y,
+  //   // };
+  // 
+  //   this.width = (100 / x) + "%";
+  //   this.height =  (100 / y) + "%";
+  //   this.mode = "landscape";
+  // 
+  //   this.fontCorrection = "7vmin";
+  //   // document.documentElement.style.setProperty("--font-size-big",  (1/Math.pow(items,0.5) * 15) + "vmin");
+  //   // this.mode = x > y ? "landscape" : "portrait";
+  //   // this.mode = tmpItemSize.width < 1.5*tmpItemSize.height ? "portrait" : "landscape";
+  //   console.log("xy", this.fullWidth, this.fullHeight, this.width, this.height);
+  // }
+  
+  
   calcXY() {
     if (this.lines == null) { return; }
     
@@ -57,17 +94,31 @@ export class DSVComponent implements OnInit {
     // diff ratio of the window, 1.0 if its exactly 16/9 (which the page
     // was designed for), bigger if the width is bigger than the height
     // (in ratio to 16/9), or otherwise for smaller than 1.0.
-    var ratioDiff = this.fullWidth/this.fullHeight * 12/16;
+    var ratioDiff = this.fullWidth/this.fullHeight * 1/1.5;
+    if (ratioDiff < 1) ratioDiff = ratioDiff * 1.5;//((1-ratioDiff) * 10)
 
     // the number of items in a row will be count(items)^(0.45*ratioDiff)
     // var x = Math.round( Math.pow(items, 0.45 * ratioDiff));
-    var x = Math.round(2 * ratioDiff*2);
-    if (x < 2) x = 2;
+    // var x = Math.round(ratioDiff);
+    // if (x < 2) x = 2;
 
+    
+
+
+      console.log(ratioDiff)
+    var x = Math.floor( Math.sqrt(items) * ratioDiff );
+    
     // fix possible bigger x than items
     if (x > items) x = items;
-
+    
     var y = Math.ceil( items / x);
+    console.log( "rdiff", ratioDiff )
+    
+    while ((x-1)*y >= items) {
+      x += -1
+    }
+
+    
 
     // var tmpItemSize = {
     //   width: this.fullWidth/x,
@@ -99,30 +150,31 @@ export class DSVComponent implements OnInit {
     dsvAPI.data.subscribe(data => {
       
       this.lines = data;
-      
-      Object.keys(this.lines).forEach(key => {
-        if (this.lines[key].online == false) {
-          delete this.lines[key];
-        }
-      });
-      
-      
-      if (this.lines != null && this.lines["standTest1"] != null) {
-        this.lines["standTest001"] = this.lines["standTest1"];
-        this.lines["standTest002"] = this.lines["standTest1"];
-        this.lines["standTest003"] = this.lines["standTest1"];
-        this.lines["standTest004"] = this.lines["standTest6"];
-        this.lines["standTest005"] = this.lines["standTest6"];
-        this.lines["standTest0001"] = this.lines["standTest1"];
-        this.lines["standTest0002"] = this.lines["standTest1"];
-        this.lines["standTest0003"] = this.lines["standTest1"];
-        this.lines["standTest0004"] = this.lines["standTest6"];
-        this.lines["standTest0005"] = this.lines["standTest6"];
-        
-        // this.lines["standTest001003"] = this.lines["standTest1"];
-        // this.lines["standTest00004"] = this.lines["standTest6"];
-        // this.lines["standTest00005"] = this.lines["standTest6"];
+      if (this.lines != null) {
+        Object.keys(this.lines).forEach(key => {
+          if (this.lines[key].online == false) {
+            delete this.lines[key];
+          }
+        });
       }
+      
+      
+      // if (this.lines != null && this.lines["standTest1"] != null) {
+      //   this.lines["standTest001"] = this.lines["standTest1"];
+      //   this.lines["standTest002"] = this.lines["standTest1"];
+      //   this.lines["standTest003"] = this.lines["standTest1"];
+      //   this.lines["standTest004"] = this.lines["standTest6"];
+      //   this.lines["standTest005"] = this.lines["standTest6"];
+      //   this.lines["standTest0001"] = this.lines["standTest1"];
+      //   this.lines["standTest0002"] = this.lines["standTest1"];
+      //   this.lines["standTest0003"] = this.lines["standTest1"];
+      //   this.lines["standTest0004"] = this.lines["standTest6"];
+      //   this.lines["standTest0005"] = this.lines["standTest6"];
+      // 
+      //   // this.lines["standTest001003"] = this.lines["standTest1"];
+      //   // this.lines["standTest00004"] = this.lines["standTest6"];
+      //   // this.lines["standTest00005"] = this.lines["standTest6"];
+      // }
       this.calcXY();
       // this.lines = Object.keys(data).map(key => {
       //   return {"lineID": key, "session": data[key]};
