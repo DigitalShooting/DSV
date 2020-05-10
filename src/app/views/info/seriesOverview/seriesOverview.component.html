@@ -1,0 +1,4 @@
+<h3>Serien</h3>
+<div fxLayout="row wrap" fxLayoutAlign="space-between">
+  <span fxFlex="50" class="button" *ngFor="let series of currentPart.serien; index as i;" (click)="selectSeries(i)" [ngClass]="{'bold' : i == selectedSeriesIndex}">{{series.gesamt}}</span>
+</div>

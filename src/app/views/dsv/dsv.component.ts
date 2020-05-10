@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, HostBinding } from '@angular/core';
 
 import { DsvApiService } from "../../dsv-api.service";
-import { Session, Target, Serie, DSCLine } from "../../classes/session";
+import { Session, Target, Serie } from "../../classes/session";
 
 @Component({
   selector: 'app-dsv',
@@ -147,10 +147,11 @@ export class DSVComponent implements OnInit {
 
   constructor(dsvAPI: DsvApiService) {
     dsvAPI.connected.subscribe(connected => console.log("isConnected", connected))
-    dsvAPI.data.subscribe(data => {
+    dsvAPI.data.subscribe(onlineLines => {
       
-      this.lines = data;
-      if (this.lines != null) {
+      console.log("onupdate")
+      if (onlineLines != null) {
+        this.lines = onlineLines.lines;
         Object.keys(this.lines).forEach(key => {
           if (this.lines[key].online == false) {
             delete this.lines[key];
@@ -213,6 +214,17 @@ export class DSVComponent implements OnInit {
 
   ngOnInit(): void {
     this.calcXY();
+  }
+  
+  
+  
+  
+  detailLine: any;
+  openDetailLine(line: any) {
+    this.detailLine = line;
+  }
+  closeDetail() {
+    this.detailLine = null;
   }
 
 }

@@ -26,7 +26,9 @@ export class AppComponent implements OnInit {
   updateDimensionsTimeout: number;
   onResize() {
     clearTimeout(this.updateDimensionsTimeout);
-    this.updateDimensionsTimeout = setTimeout(this.updateDimensions.bind(this), 250);
+    this.updateDimensionsTimeout = setTimeout(() => {
+      this.updateDimensions();
+    }, 250);
   }
   
   width: number;

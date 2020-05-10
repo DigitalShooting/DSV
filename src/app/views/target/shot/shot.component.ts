@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Shot, Target, Ring, Color } from "../../../classes/session";
+import { Shot, Target, Ring } from "../../../classes/session";
 
 @Component({
   selector: '[app-shot]',
@@ -12,14 +12,13 @@ export class ShotComponent {
   @Input() transparent: boolean;
   
   ring: Ring;
+  hitColor: string;
   ngOnChanges() {
-    this.ring = this.target.rings.find(ring => ring.value == Math.floor(this.shot.ring));
-
-    this.hit_color = this.target.default_hit_color;
+    this.ring = this.target.ringe.find(ring => ring.value == Math.floor(this.shot.ring.int));
+    
+    this.hitColor = this.target.defaultHitColor;
     if (this.ring) {
-      this.hit_color = this.ring.hit_color;
+      this.hitColor = this.ring.hitColor;
     }
   }
-
-  hit_color: Color;
 }

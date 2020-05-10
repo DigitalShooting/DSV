@@ -15,8 +15,8 @@ export class BackgroundComponent {
   ringWidth: number;
   
   ngOnChanges() {
-    this.radius = this.target.rings[this.target.rings.length-1].width + 1;
-    this.ringWidth = this.target.rings[1].width - this.target.rings[0].width;
+    this.radius = this.target.ringe[this.target.ringe.length-1].width + 1;
+    this.ringWidth = this.target.ringe[1].width - this.target.ringe[0].width;
     this.border_width = this.radius / 400;
   }
 }

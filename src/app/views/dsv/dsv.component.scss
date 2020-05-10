@@ -1,0 +1,60 @@
+.dsc-preview_outer {
+  display: table;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  
+  background-color: rgba(0,0,0,0.2);
+}
+
+.dsc-preview_middle {
+  display: table-cell;
+  vertical-align: middle;
+  
+  
+}
+
+
+.dsc-preview_inner {
+  padding-left: 2.5vmin;
+  padding-right: 2.5vmin;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80vw;
+  background-color:#f5f5f5;
+  
+  border-radius: 2.5vmin;
+  overflow: hidden;
+  
+  .detail {
+    height: 75vh;
+    width: 100%;
+    padding-bottom: 2vmin;
+    display:inline-block;
+  }
+  
+  .title {
+    // width: 100%;
+    padding: 1vh;
+    height: 5vmin;
+    padding-top: 2vmin;
+    
+    h2 {
+      float: left;
+    }
+    
+    .exit {
+      padding: 0;
+      margin: 0;
+      float: right;
+      // position: absolute;
+    }
+    // border-radius: 2.5vmin;
+    // background-color:#fff;
+    // border: 1px solid #000;
+    text-align: center;
+    // vertical-align: middle;
+  }
+}

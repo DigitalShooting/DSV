@@ -1,69 +1,70 @@
-export class NumberString {
-  value: number;
-  text: string;
-}
 
-
-export class Club {
-  id: number;
-  name: string;
-}
-
-export class Line {
-  id: number;
-  name: string;
-  short_name: string;
-}
-
-export class Team {
-  name: number;
-  id: string;
-}
-
-export class User {
-  id: number;
-  first_name: string;
-  last_name: string;
-}
-
-export class Info {
-  club: Club;
-  line: Line;
-  team: Team;
+export class Session {
+  _id: number;
+  line: string;
+  date: Date;
+  sessionParts: Part[];
   user: User;
+  disziplin: Discipline;
+  sessionIndex: number;
 }
-
+export class User {
+  // id: number;
+  firstName: string;
+  lastName: string;
+  verein: string;
+  manschaft: string;
+}
 
 
 
 export class Part {
-  date: Date;
-  number_of_shots: number;
-  part_type: string;
-  series: Serie[];
-  sum: NumberString;
-  result_prediction: string;
-  average: string;
+  type: string;
+  serien: Serie[];
+  
+  anzahl: number;
+  gesamt: number;
+  schnitt: string;
+  // counts
+  bestTeiler: string;
+  // selection
+  time: PartTime;
+  duration: number;
+  schnittCalc: number;
+  
+}
+export class PartTime {
+  enabled: boolean;
+  // TODO
 }
 
 export class Serie {
   shots: Shot[];
-  sum: NumberString;
-  number_of_shots: number;
+  anzahl: number;
+  gesamt: number;
+  duration: number;
+  schnitt: string;
 }
 
 export class Shot {
-  angle: number;
-  date: Date;
-  ring: number;
-  ring_count: number;
-  ring_text: string;
-  teiler: number;
+  ring: ShotRing
+  time: Date;
   x: number;
   y: number;
-  is_inner_ten: boolean;
-  number: number;
+  teiler: number;
+  winkel: string;
+  number: number;  
+  innenZehner: boolean;
 }
+export class ShotRing {
+  display: string;
+  value: number;
+  int: number;
+}
+
+
+
+
 
 
 
@@ -72,70 +73,62 @@ export class Shot {
 
 
 export class Discipline {
-  id: string;
-  // interface: Interface;
-  parts: DisciplinePart[];
-  target: Target;
+  _id: string;
+  title: string;
+  interface: any;
   time: DisciplineTime;
-  title: string;
-}
-
-export class DisciplinePart {
-  average: DisciplineAverage;
-  count_mode: CountMode;
-  enable_reset_to_new_target: boolean;
-  exit_type: ExitType;
-  has_trial_corner: boolean;
-  id: string;
-  main_part: boolean;
-  mane: string;
-  number_of_shots: number;
-  series_length: number;
-  show_infos: boolean;
-  time: DisciplineTime
-}
-
-export class Target {
-  bullet_diameter: number;
-  default_hit_color: Color;
-  default_zoom: 1;
-  inner_ten: number;
-  min_zoom: number;
-  rings: Ring[];
-  rings_draw_only: Ring[];
-  title: string;
-  trial_corner_color: Color;
-}
-
-export class Ring {
-  color: Color;
-  has_text: boolean;
-  hit_color: Color;
-  text_color: Color;
-  value: number;
-  width: number;
-  zoom: number;
-}
-
-export class Color {
-  hex: string;
-  alpha: number;
-}
-
-class DisciplineAverage {
-  type: string;
-}
-enum CountMode {
-    Integer = "Integer",
-    Tenth = "Tenth",
-}
-enum ExitType {
-  Always = "Always",
-  BevorFirst = "BevorFirst",
-  Never = "Never",
+  scheibe: Target;
+  // interface: Interface;
+  partsOrder: string[];
+  parts: any;
 }
 class DisciplineTime {
-  type: string;
+  enabled: boolean;
+  duration: number;
+  instantStart: boolean;
+}
+export class Target {
+  title: string;
+  ringe: Ring[];
+  ringeDrawOnly: Ring[];
+  // rechteckDrawOnly
+  defaultHitColor: string;
+  defaultZoom: number;
+  minZoom: number;
+  innenZehner: number;
+  kugelDurchmesser: number;
+  probeEcke: ProbeEcke;
+}
+export class Ring {
+  value: number;
+  width: number;
+  color: string;
+  text: boolean;
+  textColor: string;
+  hitColor: string;
+  zoomScale: number;
+}
+export class ProbeEcke {
+  color: string;
+  alpha: string;
+}
+export class DisciplinePart {
+  // id: string;
+  title: string;
+  probeEcke: boolean;
+  mainPart: boolean;
+  neueScheibe: boolean;
+  serienLength: number;
+  anzahlShots: number;
+  showInfos: boolean;
+  zehntel: boolean;
+  time: DisciplineTime;
+  average: DisciplineAverage;
+  exitType: string;
+}
+class DisciplineAverage {
+  enabled: boolean;
+  anzahl: number;
 }
 
 
@@ -143,26 +136,38 @@ class DisciplineTime {
 
 
 
-export class Session {
-  id: number;
-  date: Date;
-  discipline: Discipline;
-  info: Info;
-  number_of_shots: number;
-  active_part: string;
-  parts: Part[];
-  sum: NumberString
+
+
+
+
+
+
+
+
+export class Config {
+  disziplinen: ConfigDiscipline;
+  line: ConfigLine;
+}
+
+export class ConfigDiscipline {
+  all: any;
+  defaultDisziplin: Discipline;
+  groups: ConfigDisciplineGroup[];
+  
+}
+export class ConfigDisciplineGroup {
+  title: string;
+  disziplinen: string[];
+}
+
+export class ConfigLine {
+  id: string;
+  title: string;
 }
 
 
-
-
-
-export class DSCLines {
-  lines: DSCLine[];
-}
-
-export class DSCLine {
-  lineID: string;
-  session: Session;
+export class OnlineLines {
+  lines: any;
+  staticContent: any;
+  teams: any;
 }

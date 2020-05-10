@@ -9,7 +9,18 @@
 <p>w: {{width}}/ h: {{height}}</p> -->
 
 
-
 <div class="line" [ngStyle]="{'height': height, 'width': width, 'float': 'left'}" *ngFor="let line of lines | keyvalue">
-  <app-dsc-mini class="test" *ngIf="line.value.online" [session]="line.value.cache.setData" [mode]="mode"></app-dsc-mini>
+  <app-dsc-mini (click)="openDetailLine(line.value)" class="test" *ngIf="line.value.online" [session]="line.value.cache.setData" [labelShort]="line.value.labelShort" [mode]="mode"></app-dsc-mini>
+</div>
+
+<div class="dsc-preview_outer" *ngIf="detailLine">
+  <div class="dsc-preview_middle">
+    <div class="dsc-preview_inner">
+      <div class="title">
+        <h2>{{detailLine.label}}</h2>
+        <p class="exit" (click)="closeDetail()">Schließen</p>
+      </div>
+      <app-dsc class="detail" [sessionManual]="detailLine.cache.setData" [config]="detailLine.cache.setConfig"></app-dsc>
+    </div>
+  </div>
 </div>

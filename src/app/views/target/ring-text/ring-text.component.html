@@ -3,27 +3,27 @@
     [attr.x]="(-ring.width + fontSizeCorrectionX)"
     [attr.y]="fontSize*0.3"
     [attr.font-size]="fontSize"
-    [attr.fill]="ring.text_color.hex"
+    [attr.fill]="ring.textColor"
   >{{ring.value}}</svg:text>
 
   <svg:text
     [attr.x]="-ringWidth + ring.width + fontSizeCorrectionX"
     [attr.y]="fontSize*0.3"
     [attr.font-size]="fontSize"
-    [attr.fill]="ring.text_color.hex"
+    [attr.fill]="ring.textColor"
   >{{ring.value}}</svg:text>
 
   <svg:text
     [attr.x]="-fontSize*0.3"
     [attr.y]="ringWidth - ring.width - fontSizeCorrectionY"
     [attr.font-size]="fontSize"
-    [attr.fill]="ring.text_color.hex"
+    [attr.fill]="ring.textColor"
   >{{ring.value}}</svg:text>
 
   <svg:text
     [attr.x]="-fontSize*0.3"
     [attr.y]="ring.width - fontSizeCorrectionY"
     [attr.font-size]="fontSize"
-    [attr.fill]="ring.text_color.hex"
+    [attr.fill]="ring.textColor"
   >{{ring.value}}</svg:text>
 </svg:g>

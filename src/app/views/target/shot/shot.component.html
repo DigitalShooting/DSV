@@ -1,7 +1,7 @@
 <svg:circle
   [attr.cx]="shot.x/500"
   [attr.cy]="-shot.y/500"
-  [attr.r]="target.bullet_diameter"
-  [attr.fill]="transparent ? '#cccccc' : hit_color.hex"
-  [attr.opacity]="transparent ? '0.5' : hit_color.alpha"
+  [attr.r]="target.kugelDurchmesser"
+  [attr.fill]="transparent ? '#cccccc' : hitColor"
+  [attr.opacity]="transparent ? '0.5' : 1"
 />

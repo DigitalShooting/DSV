@@ -1,0 +1,17 @@
+<!-- <div (mouseenter)="onHover(true)" (mouseleave)="onHover(false)" class="full"> -->
+
+  <div class="navitem button" (click)="togglePart()">
+    <h4>Modus</h4>
+    <h3>{{activeDisciplinePart.title}}</h3>
+    <h4>
+      <span *ngFor="let partID of _session.disziplin.partsOrder" [ngClass]="{'bold' : partID == activePart.type}">{{_session.disziplin.parts[partID].title}} </span>
+    </h4>
+  </div>
+  
+  <!-- <div class="dropup-content">
+    <div class="box" *ngFor="let part of _session.parts; index as i;" [ngClass]="{'bold' : disciplinePart.id == part.id}">
+      <h3>{{getDisciplinePart(part.part_type).name}}</h3>
+      <h4>{{part.number_of_shots}} Schuss/ {{part.sum.text}} Ringe</h4>
+    </div>
+  </div> -->
+<!-- </div> -->

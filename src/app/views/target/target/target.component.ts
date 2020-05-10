@@ -10,7 +10,7 @@ export class TargetComponent implements OnInit {
   
   @Input() target: Target;
   @Input() series: Serie;
-  @Input() selectedShotIndex: number;
+  @Input() selectedShotIndex: number = null;
   @Input() line: string = '';
 
   @Input() has_trial_corner: boolean = false;
@@ -19,14 +19,14 @@ export class TargetComponent implements OnInit {
   @Input() height: string = "200";
 
   viewBox: string = "";
-  private radius: number;
-  private border_width: number;
-  private scale: number;
+  radius: number;
+  border_width: number;
+  scale: number;
   
   ngOnChanges() {
     if (this.target == null) {return}
     
-    this.radius = this.target.rings[this.target.rings.length-1].width + 1;
+    this.radius = this.target.ringe[this.target.ringe.length-1].width + 1;
     this.border_width = this.radius / 400;
 
     if (this.series != null && this.selectedShotIndex != null) {
@@ -35,18 +35,18 @@ export class TargetComponent implements OnInit {
     else {
       this.scale = 1;
     }
-
     this.viewBox = ((-this.radius)/this.scale) + " " + ((-this.radius)/this.scale) + " " + ((2*this.radius)/this.scale) + " " + ((2*this.radius)/this.scale);
   }
 
   private calculateScale(series: Serie, target: Target): number {
     var shot = series.shots[this.selectedShotIndex];
+    
     var zoom = 1;
     if (shot != null) {
-      target.rings.every(ring => {
-        if (ring.value === Math.floor(shot.ring)) {
-          if (ring.zoom != null) {
-            zoom = ring.zoom;
+      target.ringe.every(ring => {
+        if (ring.value == shot.ring.int) {
+          if (ring.zoomScale != null) {
+            zoom = ring.zoomScale;
             return false;
           }
         }
@@ -68,7 +68,7 @@ export class TargetComponent implements OnInit {
       if (ua.indexOf('chrome') > -1) { // Chrome
       } else { // Safari
         this.calculateHeight = () => {
-          this.height = document.getElementById("target_super").clientHeight + "px";
+          this.height = document.getElementById("target_super"+this.line).clientHeight + "px";
         }
       }
     }
@@ -76,10 +76,11 @@ export class TargetComponent implements OnInit {
   }
   
   ngAfterViewInit() {
-    setTimeout(this.calculateHeight, 0.1);
+    setTimeout(this.calculateHeight.bind(this), 200);
   }
   
   onResize(event) {
-    this.calculateHeight()
+    this.calculateHeight();
+    setTimeout(this.calculateHeight.bind(this), 500);
   }
 }

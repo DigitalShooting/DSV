@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Session, Target, Serie, Part, Shot } from "../../classes/session";
+import { Session, Target, Serie, Part, Shot, Config } from "../../classes/session";
 
 @Component({
   selector: 'app-dsc-mini',
@@ -10,6 +10,7 @@ import { Session, Target, Serie, Part, Shot } from "../../classes/session";
 export class DscMiniComponent implements OnInit {
 
   @Input() session: Session;
+  @Input() labelShort: string;
   @Input() mode: string;
   
   target: Target
@@ -22,23 +23,31 @@ export class DscMiniComponent implements OnInit {
   ngOnChanges() {
     if (this.session != null) {
       const session = this.session;
-      this.target = session.discipline.target;
-      const active_part = session.parts[session.active_part];
+      this.target = session.disziplin.scheibe;
+      const active_part = session.sessionParts[session.sessionIndex];
       this.currentPart = active_part;
       
-      const disciplinePart = session.discipline.parts.find(part => part.id == active_part.part_type);
-      this.has_trial_corner = disciplinePart.has_trial_corner;
+      const disciplinePart = session.disziplin.parts[active_part.type];
+      this.has_trial_corner = disciplinePart.probeEcke;
       
-      this.currentSeries = active_part.series[active_part.series.length - 1];
-      
-      if (this.currentSeries.shots.length > 0) {
-        this.selectedShotIndex = this.currentSeries.shots.length - 1;
-        this.currentShot = this.currentSeries.shots[this.selectedShotIndex];
+      if (active_part.serien.length > 0) {
+        this.currentSeries = active_part.serien[active_part.serien.length - 1];
+        
+        if (this.currentSeries.shots.length > 0) {
+          this.selectedShotIndex = this.currentSeries.shots.length - 1;
+          this.currentShot = this.currentSeries.shots[this.selectedShotIndex];
+        }
+        else {
+          this.currentShot = null;
+          this.selectedShotIndex = null;
+        }
       }
       else {
+        this.currentSeries = null;
         this.currentShot = null;
         this.selectedShotIndex = null;
       }
+      
     }
     else {
       this.target = null;

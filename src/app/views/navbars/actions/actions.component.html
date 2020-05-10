@@ -1,0 +1,26 @@
+<div (click)="toggleMenu()" class="navitem-dropup">
+
+  <div class="navitem button" [ngClass]="{'navitem-active': _openMenu}">
+    <h4></h4>
+    <h3>Aktionen</h3>
+    <h4></h4>
+  </div>
+  
+  <div class="dropup-content dropup-content-normal" [@inOutAnimation] *ngIf="_openMenu">
+    <!-- <div class="box" *ngFor="let part of _session.parts; index as i;" [ngClass]="{'bold' : disciplinePart.id == part.id}">
+      <h3>{{getDisciplinePart(part.part_type).name}}</h3>
+      <h4>{{part.number_of_shots}} Schuss/ {{part.sum.text}} Ringe</h4>
+    </div> -->
+    <app-new-target class="box button"></app-new-target>
+    
+    <div class="box button" (click)="print()">
+      <h3>Drucken</h3>
+    </div>
+    
+    <div class="box button">
+      <h3>Reset</h3>
+    </div>
+    
+  </div>
+  
+</div>
