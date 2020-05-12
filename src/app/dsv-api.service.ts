@@ -74,8 +74,10 @@ export class DsvApiService {
       }
     });
     
-    this.socket.on('setTeam', (setTeam) => {
-      console.log('setTeam', setTeam);
+    this.socket.on('setTeam', (data) => {
+      console.log('setTeam', data.team);
+      this._onlineLines.teams[data.team.teamID] = data.team;
+      this._data.next(this._onlineLines);
     });
     
     

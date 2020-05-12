@@ -53,7 +53,7 @@ export class PartComponent implements OnInit {
   
   
   togglePart() {
-    this.dscAPI.togglePart();
+    // this.dscAPI.togglePart();
   }
   
 

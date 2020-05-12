@@ -89,13 +89,15 @@ export class DSVComponent implements OnInit {
   calcXY() {
     if (this.lines == null) { return; }
     
-    const items = Object.keys(this.lines).length;
+    const items = Object.keys(this.lines).length + Object.keys(this.teams).length;
     
     // diff ratio of the window, 1.0 if its exactly 16/9 (which the page
     // was designed for), bigger if the width is bigger than the height
     // (in ratio to 16/9), or otherwise for smaller than 1.0.
-    var ratioDiff = this.fullWidth/this.fullHeight * 1/1.5;
+    // var ratioDiff = this.fullWidth/this.fullHeight * 1/1.5;
+    var ratioDiff = this.fullWidth/this.fullHeight * 1.2;
     if (ratioDiff < 1) ratioDiff = ratioDiff * 1.5;//((1-ratioDiff) * 10)
+    
 
     // the number of items in a row will be count(items)^(0.45*ratioDiff)
     // var x = Math.round( Math.pow(items, 0.45 * ratioDiff));
@@ -143,7 +145,8 @@ export class DSVComponent implements OnInit {
 
 
 
-  lines;
+  lines = {};
+  teams = {};
 
   constructor(dsvAPI: DsvApiService) {
     dsvAPI.connected.subscribe(connected => console.log("isConnected", connected))
@@ -157,46 +160,11 @@ export class DSVComponent implements OnInit {
             delete this.lines[key];
           }
         });
+        
+        this.teams = onlineLines.teams;
       }
       
-      
-      // if (this.lines != null && this.lines["standTest1"] != null) {
-      //   this.lines["standTest001"] = this.lines["standTest1"];
-      //   this.lines["standTest002"] = this.lines["standTest1"];
-      //   this.lines["standTest003"] = this.lines["standTest1"];
-      //   this.lines["standTest004"] = this.lines["standTest6"];
-      //   this.lines["standTest005"] = this.lines["standTest6"];
-      //   this.lines["standTest0001"] = this.lines["standTest1"];
-      //   this.lines["standTest0002"] = this.lines["standTest1"];
-      //   this.lines["standTest0003"] = this.lines["standTest1"];
-      //   this.lines["standTest0004"] = this.lines["standTest6"];
-      //   this.lines["standTest0005"] = this.lines["standTest6"];
-      // 
-      //   // this.lines["standTest001003"] = this.lines["standTest1"];
-      //   // this.lines["standTest00004"] = this.lines["standTest6"];
-      //   // this.lines["standTest00005"] = this.lines["standTest6"];
-      // }
       this.calcXY();
-      // this.lines = Object.keys(data).map(key => {
-      //   return {"lineID": key, "session": data[key]};
-      // });
-      // console.log("all lines", this.lines);
-      
-      // if (this.lines.length > 0) {
-      //   this.lines.push(this.lines[0])
-      //   this.lines.push(this.lines[0])
-      //   this.lines.push(this.lines[0])
-      //   this.lines.push(this.lines[0])
-      // 
-      //   this.lines.push(this.lines[0])
-      //   this.lines.push(this.lines[0])
-      //   this.lines.push(this.lines[0])
-      //   this.lines.push(this.lines[0])
-      // 
-      //   this.lines.push(this.lines[0])
-      //   this.lines.push(this.lines[0])
-      //   this.lines.push(this.lines[0])
-      // }
       
       // if (session != null) {
       //   this.activePart = session.parts[session.active_part];

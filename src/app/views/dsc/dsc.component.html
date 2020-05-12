@@ -54,7 +54,7 @@
     <app-club fxFlex *ngIf="session.user.verein != ''" [user]="session.user"></app-club>
     <app-disciplin fxFlex [disziplin]="session.disziplin" [config]="config" [(openMenu)]="hasOpenMenu"></app-disciplin>
     <!-- <app-new-target fxFlex class="button "></app-new-target> -->
-    <app-actions fxFlex [(openMenu)]="hasOpenMenu"></app-actions>
+    <!-- <app-actions fxFlex [(openMenu)]="hasOpenMenu"></app-actions> -->
     <app-part fxFlex [session]="session"></app-part>
   </div>
 

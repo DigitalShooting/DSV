@@ -1,0 +1,59 @@
+
+<div class="dsc-mini" *ngIf="team" >
+  <div fxFlex fxLayout="column" fxLayoutAlign="space-between stretch">  
+    
+    <div fxFlex=30 fxLayout="column" fxLayoutAlign="space-evenly center">
+      <p fxFlex class="medium">{{team.verein}}</p>
+      <p fxFlex class="medium">{{team.manschaft}}</p>
+    </div>
+
+
+    <div fxFlex="70" fxLayout="row wrap" fxLayoutAlign="space-between center">
+      <div fxFlex=50>
+        <p class="big bold">{{team.gesamt}}</p>
+        <p class="small light ">Ringe</p>
+      </div>
+      <div fxFlex=50>
+        <p class="big light">{{team.hochrechnung}} &Oslash;</p>
+        <p class="small light ">Ringe</p>
+      </div>
+      <div fxFlex=50>
+        <p class="big light">{{team.progress}} %</p>
+        <p class="small light ">Fortschritt</p>
+      </div>
+      <div fxFlex=50>
+        <p class="big light">{{team.schnitt}} &Oslash;</p>
+        <p class="small light ">Schnitt</p>
+      </div>
+    </div>
+    
+    
+    
+    
+
+
+    
+
+
+    
+    <div fxFlex>
+      <p class="medium"></p>
+      
+      <!-- <div fxFlex="10">
+        <p class="medium">{{session.user.firstName}} {{session.user.lastName}}</p>
+      </div>
+      <div fxFlex="10">
+        <p class="medium">{{session.user.verein}} {{session.user.manschaft}}</p>
+      </div> -->
+    </div>
+    
+    <div fxFlex fxLayout="row">
+      
+      
+      
+    </div>
+    
+    
+  
+  </div>
+</div>

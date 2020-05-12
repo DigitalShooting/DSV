@@ -171,3 +171,15 @@ export class OnlineLines {
   staticContent: any;
   teams: any;
 }
+export class OnlineLinesTeam {
+  anzahl: number;
+  gesamt: number;
+  hochrechnung: number;
+  manschaft: string;
+  numberOfUsersInTeam: number;
+  progress: number;
+  schnitt: number;
+  teamID: string;
+  users: any[];
+  verein: string;
+}

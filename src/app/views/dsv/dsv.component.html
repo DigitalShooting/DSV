@@ -13,6 +13,12 @@
   <app-dsc-mini (click)="openDetailLine(line.value)" class="test" *ngIf="line.value.online" [session]="line.value.cache.setData" [labelShort]="line.value.labelShort" [mode]="mode"></app-dsc-mini>
 </div>
 
+<div class="line" [ngStyle]="{'height': height, 'width': width, 'float': 'left'}" *ngFor="let team of teams | keyvalue">
+  
+  <app-team-mini [team]="team.value"></app-team-mini>
+</div>
+
+
 <div class="dsc-preview_outer" *ngIf="detailLine">
   <div class="dsc-preview_middle">
     <div class="dsc-preview_inner">

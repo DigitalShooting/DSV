@@ -12,10 +12,7 @@
 .dsc-preview_middle {
   display: table-cell;
   vertical-align: middle;
-  
-  
 }
-
 
 .dsc-preview_inner {
   padding-left: 2.5vmin;
@@ -36,7 +33,6 @@
   }
   
   .title {
-    // width: 100%;
     padding: 1vh;
     height: 5vmin;
     padding-top: 2vmin;
@@ -49,12 +45,7 @@
       padding: 0;
       margin: 0;
       float: right;
-      // position: absolute;
     }
-    // border-radius: 2.5vmin;
-    // background-color:#fff;
-    // border: 1px solid #000;
     text-align: center;
-    // vertical-align: middle;
   }
 }

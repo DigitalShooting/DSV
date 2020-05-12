@@ -20,6 +20,9 @@ export class DscMiniComponent implements OnInit {
   selectedShotIndex: number;
   has_trial_corner: boolean = false;
   
+  nameFontClass = "";
+  vereinFontClass = "";
+  
   ngOnChanges() {
     if (this.session != null) {
       const session = this.session;
@@ -48,6 +51,14 @@ export class DscMiniComponent implements OnInit {
         this.selectedShotIndex = null;
       }
       
+      // Font Size calc, based on the length of the text
+      this.nameFontClass = "medium";
+      let userLength = session.user.firstName.length + session.user.lastName.length;
+      if (userLength > 20) this.nameFontClass = "small";
+      
+      let vereinLength = session.user.verein.length;
+      this.vereinFontClass = "medium";
+      if (vereinLength > 20) this.vereinFontClass = "small";
     }
     else {
       this.target = null;

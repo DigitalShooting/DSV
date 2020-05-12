@@ -61,14 +61,14 @@ export class DisciplinComponent implements OnInit {
     }
   }
   toggleMenu() {
-    this._openMenu = !this._openMenu;
-    this.openMenuChange.emit({
-      state: this._openMenu,
-      menuTitle: this.menuTitle,
-      triggerClose: false,
-    });
-    // Update selected in case of change during open menu
-    this.updateSelectedGroup();
+    // this._openMenu = !this._openMenu;
+    // this.openMenuChange.emit({
+    //   state: this._openMenu,
+    //   menuTitle: this.menuTitle,
+    //   triggerClose: false,
+    // });
+    // // Update selected in case of change during open menu
+    // this.updateSelectedGroup();
   }
   
   ngOnChanges() {

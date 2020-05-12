@@ -1,6 +1,6 @@
 <div (click)="toggleMenu()" class="navitem-dropup">
 
-  <div class="navitem button" [ngClass]="{'buttonSelected': _openMenu}" *ngIf="disziplin" (click)="openModal">
+  <div class="navitem" [ngClass]="{'buttonSelected': _openMenu}" *ngIf="disziplin" (click)="openModal">
     <h4>Disziplin</h4>
     <h3>{{disziplin.title}}</h3>
     <h4>{{disziplin.scheibe.title}}</h4>
