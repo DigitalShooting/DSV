@@ -31,7 +31,7 @@ export class DsvApiService {
 
   constructor() {
     // this.socket = new ReconnectingWebSocket(environment.serverURL);
-    this.socket = io(environment.serverURL)
+    this.socket = io(environment.serverURL(location));
     // this.socket = io("http://127.0.0.1:4000")
     
     // this.socket.on("setData", (message) => {
