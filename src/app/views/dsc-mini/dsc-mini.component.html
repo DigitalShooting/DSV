@@ -1,7 +1,7 @@
 <div class="dsc-mini" *ngIf="session" >
   <div fxFlex fxLayout="column" fxLayoutAlign="space-between stretch">
     <p class="lineID">{{labelShort}}</p>
-    <app-target fxFlex="45" [line]="session.line" [target]="target" [series]="currentSeries" [selectedShotIndex]="selectedShotIndex" [has_trial_corner]="has_trial_corner" [width]="'100%'" [height]="'100%'"></app-target>
+    <app-target fxFlex="40" [line]="session.line" [target]="target" [series]="currentSeries" [selectedShotIndex]="selectedShotIndex" [has_trial_corner]="has_trial_corner" [width]="'100%'" [height]="'100%'"></app-target>
     <div fxFlex fxLayout="column" fxLayoutAlign="space-between">
       <div fxFlex="nogrow">
         <p [ngClass]="nameFontClass">{{session.user.firstName}} {{session.user.lastName}}</p>
@@ -11,22 +11,22 @@
       <div fxLayout="row wrap">
         <div *ngIf="currentShot" class="info" fxFlex="50">
           <p class="medium bold">{{currentShot.ring.display}}</p>
-          <p class="small">{{currentShot.teiler}}</p>
+          <p class="bottomLabel">{{currentShot.teiler}}</p>
         </div>
         
         <div *ngIf="currentPart.anzahl > 0" class="info" fxFlex="50">
           <p class="medium-s light">{{currentPart.schnitt}} &Oslash;</p>
-          <p class="small">{{currentPart.schnittCalc}}</p>
+          <p class="bottomLabel">{{currentPart.schnittCalc}}</p>
         </div>
         
         <div *ngIf="currentPart.anzahl > 0" class="info full" fxFlex="50">
           <p class="medium-s light ">{{currentPart.anzahl}}</p>
-          <p class="small">{{currentPart.anzahl == 1 ? 'Schuss' : 'Schüsse'}}</p>
+          <p class="bottomLabel">{{currentPart.anzahl == 1 ? 'Schuss' : 'Schüsse'}}</p>
         </div>
         
         <div *ngIf="currentPart.anzahl > 0" class="info" fxFlex="50">
           <p class="medium bold">{{currentPart.gesamt}}</p>
-          <p class="small">Ringe</p>
+          <p class="bottomLabel">Ringe</p>
         </div>
       </div>
       
