@@ -1,6 +1,6 @@
 <!-- Items - Line -->
 <div class="line" [ngStyle]="{'height': height, 'width': width, 'float': 'left'}" *ngFor="let line of lines | keyvalue">
-  <app-dsc-mini (click)="openDetailLine(line.value)" class="test" *ngIf="line.value.online" [session]="line.value.cache.setData" [labelShort]="line.value.labelShort"></app-dsc-mini>
+  <app-dsc-mini (click)="openDetailLine(line.value)" [session]="line.value.cache.setData" [labelShort]="line.value.labelShort"></app-dsc-mini>
 </div>
 
 <!-- Items - Teams -->

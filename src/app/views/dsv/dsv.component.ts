@@ -64,12 +64,13 @@ export class DSVComponent implements OnInit {
     dsvAPI.connected.subscribe(connected => console.log("isConnected", connected))
     dsvAPI.data.subscribe(onlineLines => {
       if (onlineLines != null) {
-        this.lines = onlineLines.lines;
-        Object.keys(this.lines).forEach(key => {
-          if (this.lines[key].online == false) {
-            delete this.lines[key];
+        let lines = {};
+        Object.keys(onlineLines.lines).forEach(key => {
+          if (onlineLines.lines[key].online == true && onlineLines.lines[key].cache.setData != null) {
+            lines[key] = onlineLines.lines[key];
           }
         });
+        this.lines = lines;
         this.teams = onlineLines.teams;
       }
       this.calcXY();

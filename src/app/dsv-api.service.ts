@@ -52,14 +52,13 @@ export class DsvApiService {
 
 
     this.socket.on('onlineLines', (onlineLines) => {
-      console.log(onlineLines);
       this._onlineLines = onlineLines;
       this._data.next(onlineLines);
-      console.log('onlineLines', onlineLines);
+      // console.log('onlineLines', onlineLines);
     });
     
     this.socket.on('setConfig', (config) => {
-      console.log('setConfig', config);
+      // console.log('setConfig', config);
       if (this._onlineLines && this._onlineLines.lines[config.line]) {
         this._onlineLines.lines[config.line].cache.setConfig = config.data;
         this._data.next(this._onlineLines);
@@ -67,7 +66,7 @@ export class DsvApiService {
     });
     
     this.socket.on('setData', (data) => {
-      console.log('setData', data);
+      // console.log('setData', data);
       if (this._onlineLines && this._onlineLines.lines[data.line]) {
         this._onlineLines.lines[data.line].cache.setData = data.data;
         this._data.next(this._onlineLines);
@@ -75,7 +74,7 @@ export class DsvApiService {
     });
     
     this.socket.on('setTeam', (data) => {
-      console.log('setTeam', data.team);
+      // console.log('setTeam', data.team);
       this._onlineLines.teams[data.team.teamID] = data.team;
       this._data.next(this._onlineLines);
     });
