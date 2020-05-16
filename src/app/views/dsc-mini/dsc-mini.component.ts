@@ -11,7 +11,6 @@ export class DscMiniComponent implements OnInit {
 
   @Input() session: Session;
   @Input() labelShort: string;
-  @Input() mode: string;
   
   target: Target
   currentPart: Part;

@@ -1,24 +1,26 @@
-<!-- <div fxLayout="row warp" fxLayoutAlign="space-evenly strech" fxLayoutGap="1vmin grid">
-  <div [fxFlex]="width" [ngStyle]="{'height': height}" *ngFor="let line of lines | keyvalue">
-    <app-dsc-mini  *ngIf="line.value" [session]="line.value"></app-dsc-mini>
-  </div>
-</div> -->
-
-
-<!-- <p>w: {{fullWidth}}/ h: {{fullHeight}}/ q: {{fullWidth/fullHeight}}</p>
-<p>w: {{width}}/ h: {{height}}</p> -->
-
-
+<!-- Items - Line -->
 <div class="line" [ngStyle]="{'height': height, 'width': width, 'float': 'left'}" *ngFor="let line of lines | keyvalue">
-  <app-dsc-mini (click)="openDetailLine(line.value)" class="test" *ngIf="line.value.online" [session]="line.value.cache.setData" [labelShort]="line.value.labelShort" [mode]="mode"></app-dsc-mini>
+  <app-dsc-mini (click)="openDetailLine(line.value)" class="test" *ngIf="line.value.online" [session]="line.value.cache.setData" [labelShort]="line.value.labelShort"></app-dsc-mini>
 </div>
 
+<!-- Items - Teams -->
 <div class="line" [ngStyle]="{'height': height, 'width': width, 'float': 'left'}" *ngFor="let team of teams | keyvalue">
-  
   <app-team-mini [team]="team.value"></app-team-mini>
 </div>
 
+<!-- No Lines Text -->
+<div class="noline" fxLayout="row" fxLayoutAlign="space-around center">
+  <div class="box" fxFlex>
+    <div class="imgContainer" fxLayout="row" fxLayoutAlign="space-around center">
+      <img fxFlex src="/assets/logo.png"/>
+    </div>
+    <h2>Keine Aktiven Stände</h2>
+    <p>Aktuell sind keine Stände Online</p>
+  </div>
+</div>
 
+
+<!-- DSC Detail -->
 <div class="dsc-preview_outer" *ngIf="detailLine">
   <div class="dsc-preview_middle">
     <div class="dsc-preview_inner">
