@@ -1,0 +1,3 @@
+[submodule "src/app/views/dsc"]
+	path = src/app/views/dsc
+	url = https://github.com/DigitalShooting/DSC-GUI-Components.git
