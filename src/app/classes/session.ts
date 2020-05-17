@@ -3,6 +3,7 @@ import { DscAPIInterface } from "../views/dsc/api";
 export interface DscGatewayInterface extends DscAPIInterface {
   setDetail(line: OnlineLinesLine);
   closeDetail();
+  hasKey: boolean;
 }
 
 

@@ -66,9 +66,6 @@ export class DSVComponent implements OnInit {
   teams = {};
 
   constructor(dsvAPI: DsvApiService, @Inject(DscAPI_Token) public dscAPI: DscGatewayInterface) {
-    
-    this.enableEdit = environment.enableEdit;
-    
     dsvAPI.connected.subscribe(connected => console.log("isConnected", connected))
     dsvAPI.data.subscribe(onlineLines => {
       if (onlineLines != null) {
@@ -94,6 +91,7 @@ export class DSVComponent implements OnInit {
   
   detailLine: OnlineLinesLine;
   openDetailLine(line: OnlineLinesLine) {
+    this.enableEdit = environment.enableEdit && this.dscAPI.hasKey;
     this.detailLine = line;
     this.dscAPI.setDetail(line);
   }

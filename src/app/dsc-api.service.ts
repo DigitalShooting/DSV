@@ -22,9 +22,10 @@ export class DscApiService {
 
   // TODO
   private auth = {
-    // key: environment.apiKey,
     key: "123",
   };
+  
+  hasKey: boolean = false;
   
   private line: OnlineLinesLine
   setDetail(line: OnlineLinesLine) {
@@ -66,6 +67,9 @@ export class DscApiService {
   constructor(private route: ActivatedRoute, private dsvAPI: DsvApiService) {
     this.route.queryParamMap.subscribe(params => {
       this.auth.key = params.get("key");
+      if (this.auth.key != null) {
+        this.hasKey = true;
+      }
     })
     dsvAPI.data.subscribe(onlineLines => {
       if (onlineLines != null && this.line != null) {
