@@ -29,6 +29,7 @@ export class DsvApiService {
     return this._data.asObservable();
   }
   
+  
   sendToLine(lineID: string, method: string, data: any) {
     this.socket.emit("setLine", {
       method: method,
@@ -66,6 +67,8 @@ export class DsvApiService {
         this._data.next(this._onlineLines);
       }
     });
+    
+    
     
     this.socket.on('setData', (data) => {
       // console.log('setData', data);

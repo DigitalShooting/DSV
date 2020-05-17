@@ -57,6 +57,11 @@ export class DscApiService {
   get config() {
     return this._config.asObservable();
   }
+  
+  private _status: ReplaySubject<boolean> = new ReplaySubject<boolean>();
+  get status() {
+    return this._status.asObservable();
+  }
 
   constructor(private route: ActivatedRoute, private dsvAPI: DsvApiService) {
     this.route.queryParamMap.subscribe(params => {
