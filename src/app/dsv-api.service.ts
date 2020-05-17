@@ -28,15 +28,17 @@ export class DsvApiService {
   get data() {
     return this._data.asObservable();
   }
+  
+  sendToLine(lineID: string, method: string, data: any) {
+    this.socket.emit("setLine", {
+      method: method,
+      line: lineID,
+      data: data,
+    });
+  }
 
   constructor() {
-    // this.socket = new ReconnectingWebSocket(environment.serverURL);
     this.socket = io(environment.serverURL(location));
-    // this.socket = io("http://127.0.0.1:4000")
-    
-    // this.socket.on("setData", (message) => {
-    //   console.log(message)
-    // });
     
     this.socket.on('connect', () => {
       console.log('on connect');
@@ -54,7 +56,7 @@ export class DsvApiService {
     this.socket.on('onlineLines', (onlineLines) => {
       this._onlineLines = onlineLines;
       this._data.next(onlineLines);
-      // console.log('onlineLines', onlineLines);
+      console.log('onlineLines', onlineLines);
     });
     
     this.socket.on('setConfig', (config) => {

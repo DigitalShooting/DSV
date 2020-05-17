@@ -4,27 +4,27 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { AngularFittextModule } from 'angular-fittext';
 
 import { DSVComponent } from './dsv/dsv.component';
-import { TargetModule } from './target/target.module';
+// import { TargetModule } from './target/target.module';
 import { DscMiniComponent } from './dsc-mini/dsc-mini.component';
 import { TeamMiniComponent } from './team-mini/team-mini.component';
 
-import { NavbarsModule } from './navbars/navbars.module';
-import { InfoModule } from './info/info.module';
-import { DscComponent } from './dsc/dsc.component';
+import { DscModule } from './dsc/dsc.module';
 
 @NgModule({
-  declarations: [
-    DscComponent,
+  declarations: [    
     DSVComponent,
     DscMiniComponent, TeamMiniComponent,
   ],
   imports: [
-    CommonModule, TargetModule,
+    CommonModule,
+    // TargetModule,
     FlexLayoutModule, AngularFittextModule,
-    NavbarsModule, InfoModule,
+    DscModule,
   ],
   exports: [
-    DscComponent, DSVComponent, TargetModule,
+    DSVComponent,
+    // TargetModule,
+    DscModule,
   ],
 })
 export class ViewsModule { }

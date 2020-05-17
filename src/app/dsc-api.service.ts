@@ -3,11 +3,13 @@ import { ActivatedRoute } from "@angular/router";
 
 import { ReplaySubject } from "rxjs";
 
-// import ReconnectingWebSocket from "../../node_modules/reconnectingwebsocket/reconnecting-websocket.min.js";
 import * as io from 'socket.io-client';
 
+import { DsvApiService } from "./dsv-api.service";
+import { OnlineLinesLine } from "./classes/session";
+import { Session, Config, DisciplinePart } from "./views/dsc/classes/session";
+import { DscAPIInterface } from "./views/dsc/api";
 
-import { Session, Config, DisciplinePart } from "./classes/session";
 
 import { environment } from '../environments/environment';
 
@@ -23,6 +25,20 @@ export class DscApiService {
     // key: environment.apiKey,
     key: "123",
   };
+  
+  private line: OnlineLinesLine
+  setDetail(line: OnlineLinesLine) {
+    this.line = line;
+    this._connected.next(true);
+    this._session.next(line.cache.setData);
+    this._config.next(line.cache.setConfig);
+  }
+  closeDetail() {
+    this.line = null;
+    this._connected.next(false);
+    this._session.next(null);
+    this._config.next(null);
+  }
 
   // websocket connection status to dsc server
   private _connected: ReplaySubject<boolean> = new ReplaySubject<boolean>();
@@ -42,227 +58,91 @@ export class DscApiService {
     return this._config.asObservable();
   }
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private dsvAPI: DsvApiService) {
     this.route.queryParamMap.subscribe(params => {
       this.auth.key = params.get("key");
     })
-    
-    // this.socket = io("http://10.1.0.211:3000");
-    // this.socket = io(environment.serverURL);
-    // this.socket = io("ws://" + location.host + "/socket/");
-    // this.socket = io("ws://" + location.host);
-    
-    // this.socket.on('connect', () => {
-    //   console.log('on connect');
-    //   this._connected.next(true);
-    // });
-    // 
-    // this.socket.on('disconnect', () => {
-    //   console.log('on disconnect');
-    //   this._connected.next(false);
-    // });
-    // 
-    // this.socket.on('setStatus', (connected) => {
-    //   console.log('setStatus', connected);
-    // });
-    // 
-    // 
-    // 
-    // this.socket.on('showMessage', (message) => {
-    //   console.log('showMessage', message);
-    // });
-    // this.socket.on('hideMessage', () => {
-    //   console.log('hideMessage');
-    // });
-    
-    
-    
-    
-    
-    
-    // this.socket.on('setData', (session) => {
-    //   this.currentSession = session;
-    //   this._session.next(session);
-    //   console.log('setData', session);
-    // });
-    // 
-    // this.socket.on('setConfig', (config) => {
-    //   console.log('setConfig', config);
-    //   this._config.next(config);
-    // });
-    
-    
-    
-    // this.socket = new ReconnectingWebSocket(environment.serverURL);
-    // // this.socket = new ReconnectingWebSocket("ws://" + location.host + "/socket/");
-    // 
-    // this.socket.onopen = () => {
-    //   this._connected.next(true);
-    //   window.status = "ready";
-    // };
-    // this.socket.onclose = () => {
-    //   this._connected.next(false);
-    //   this._session.next(null);
-    // };
-		// this.socket.onmessage = (event) => {
-		// 	try {
-		// 		let data = JSON.parse(event.data);
-    //     if (data.type == "Config") {
-    //       this._config.next(data.config);
-		// 		}
-		// 		if (data.type == "Session") {
-    //       this._session.next(data.session);
-    //       this.currentSession = data.session;
-		// 		}
-    // 
-		// 		if (data.type == "Message") {
-    //       console.log("set message", data)
-		// 			// if (data.log != null) {
-		// 			// 	this.logs.push(data.log);
-		// 			// 	this.show_modal_message();
-		// 			// }
-		// 		}
-		// 	}
-		// 	catch (err) {
-		// 		console.error(err)
-		// 	}
-		// }
+    dsvAPI.data.subscribe(onlineLines => {
+      if (onlineLines != null && this.line != null) {
+        let newLine = onlineLines.lines[this.line.id];
+        if (newLine != null) {
+          this.line = newLine;
+          this._session.next(this.line.cache.setData);
+          this._config.next(this.line.cache.setConfig);
+        }
+      }
+    });
   }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // Send given data to dsc server
-  private send(data) {
-    // this.socket.send(JSON.stringify(data));
-  }
-  
 
   
 
   setNewTarget() {
-    // this.socket.emit("newTarget", {
-    //   auth: this.auth,
-    // });
+    this.dsvAPI.sendToLine(this.line.id, "newTarget", {
+      auth: this.auth,
+    })
   }
   setPart(partId, forceNewPart) {
-    // console.log(partId);
-    // this.socket.emit("setPart", {
-    //   auth: this.auth,
-    //   partId: partId,
-    // });
+    this.dsvAPI.sendToLine(this.line.id, "setPart", {
+      auth: this.auth,
+      partId: partId,
+    });
   }
   togglePart() {
-    // const session = this.currentSession;
-    // if (session == null) return;
-    // const partsOrder = session.disziplin.partsOrder;
-    // const activePart = session.sessionParts[session.sessionIndex];
-    // const currentIndex = partsOrder.indexOf(activePart.type)
-    // 
-    // console.log(currentIndex)
-    // 
-    // // Jump to the first disciplin part if we are at the end
-    // if (currentIndex + 1 >= partsOrder.length) {
-    //   this.setPart(partsOrder[0], false);
-    // }
-    // // Jump to the nex disciplin part
-    // else {
-    //   this.setPart(partsOrder[currentIndex+1], false);
-    // }
+    const session = this.line.cache.setData;
+    if (session == null) return;
+    const partsOrder = session.disziplin.partsOrder;
+    const activePart = session.sessionParts[session.sessionIndex];
+    const currentIndex = partsOrder.indexOf(activePart.type)
+    
+    // Jump to the first disciplin part if we are at the end
+    if (currentIndex + 1 >= partsOrder.length) {
+      this.setPart(partsOrder[0], false);
+    }
+    // Jump to the nex disciplin part
+    else {
+      this.setPart(partsOrder[currentIndex+1], false);
+    }
   }
   setSessionIndex(sessionIndex) {
-    // this.socket.emit("setSessionIndex", {
-    // 	auth: this.auth,
-    // 	sessionIndex: sessionIndex,
-    // });
-  }
-  setSelectedSerie(index) {
-    // this.socket.emit("setSelectedSerie", {
-    // 	auth: this.auth,
-    // 	index: index,
-    // });
-  }
-  setSelectedShot(index) {
-    // this.socket.emit("setSelectedShot", {
-    // 	auth: this.auth,
-    // 	index: index,
-    // });
+    this.dsvAPI.sendToLine(this.line.id, "setSessionIndex", {
+    	auth: this.auth,
+    	sessionIndex: sessionIndex,
+    });
   }
   setUser(user){
-    // this.socket.emit("setUser", {
-    // 	auth: this.auth,
-    // 	user: user,
-    // });
+    this.dsvAPI.sendToLine(this.line.id, "setUser", {
+    	auth: this.auth,
+    	user: user,
+    });
   }
   setDisciplin(disziplin) {
-    // this.socket.emit("setDisziplin", {
-    //   auth: this.auth,
-    //   disziplin: disziplin,
-    // });
+    this.dsvAPI.sendToLine(this.line.id, "setDisziplin", {
+      auth: this.auth,
+      disziplin: disziplin,
+    });
   }
   print() {
     // default Normal
     // dateless Ohne Datum
     // bigImage Größere Scheibe
-    // this.socket.emit("print", {
-    //   auth: this.auth,
-    //   printTemplate: "default",
-    // });
+    this.dsvAPI.sendToLine(this.line.id, "print", {
+      auth: this.auth,
+      printTemplate: "default",
+    });
   }
-  loadData(data) {
-    // this.socket.emit("loadData", {
-    // 	auth: this.auth,
-    // 	data: data,
-    // });
-  }
-  getTempToken() {
-    // this.socket.emit("getTempToken", {
-    // 	auth: this.auth,
-    // });
-  }
-
-
-
-  //
-  // function new_target() {
-  // 	send({
-  // 		"type": "NewTarget"
-  // 	});
+  // loadData(data) {
+  //   this.dsvAPI.sendToLine(this.line.id, "loadData", {
+  //   	auth: this.auth,
+  //   	data: data,
+  //   });
   // }
-  //
-  // function set_disciplin() {
-  // 	send({
-  // 		"type": "SetDisciplin",
-  // 		"name": "test"
-  // 	});
+  // getTempToken() {
+  //   // this.socket.emit("getTempToken", {
+  //   // 	auth: this.auth,
+  //   // });
   // }
-  //
-  // function send(element) {
-  // 	socket.send(JSON.stringify(element));
-  // }
-
-
-
-
-
-
-
-
-
 
 
 

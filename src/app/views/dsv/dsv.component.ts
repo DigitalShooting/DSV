@@ -1,7 +1,11 @@
-import { Component, OnInit, Input, HostBinding } from '@angular/core';
+import { Component, OnInit, Input, HostBinding, Inject } from '@angular/core';
 
 import { DsvApiService } from "../../dsv-api.service";
-import { Session, Target, Serie } from "../../classes/session";
+import { DscGatewayInterface, OnlineLinesLine } from "../../classes/session";
+
+import { Session, Target, Serie} from "../dsc/classes/session";
+import { DscAPI_Token } from "../dsc/api";
+
 
 @Component({
   selector: 'app-dsv',
@@ -60,7 +64,7 @@ export class DSVComponent implements OnInit {
   lines = {};
   teams = {};
 
-  constructor(dsvAPI: DsvApiService) {
+  constructor(dsvAPI: DsvApiService, @Inject(DscAPI_Token) public dscAPI: DscGatewayInterface) {
     dsvAPI.connected.subscribe(connected => console.log("isConnected", connected))
     dsvAPI.data.subscribe(onlineLines => {
       if (onlineLines != null) {
@@ -84,13 +88,14 @@ export class DSVComponent implements OnInit {
   
   
   
-  
-  detailLine: any;
-  openDetailLine(line: any) {
+  detailLine: OnlineLinesLine;
+  openDetailLine(line: OnlineLinesLine) {
     this.detailLine = line;
+    this.dscAPI.setDetail(line);
   }
   closeDetail() {
     this.detailLine = null;
+    this.dscAPI.closeDetail();
   }
 
 }

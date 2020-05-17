@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Session, Target, Serie, Part, Shot, Config } from "../../classes/session";
+import { Session, Target, Serie, Part, Shot, Config } from "../dsc/classes/session";
 
 @Component({
   selector: 'app-dsc-mini',
