@@ -28,8 +28,7 @@
         <h2>{{detailLine.label}}</h2>
         <p class="exit" (click)="closeDetail()">Schließen</p>
       </div>
-      <!-- <app-dsc class="detail" [sessionManual]="detailLine.cache.setData" [config]="detailLine.cache.setConfig"></app-dsc> -->
-      <app-dsc class="detail"></app-dsc>
+      <app-dsc class="detail" [enableEdit]="enableEdit"></app-dsc>
     </div>
   </div>
 </div>

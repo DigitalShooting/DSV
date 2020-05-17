@@ -6,6 +6,7 @@ import { DscGatewayInterface, OnlineLinesLine } from "../../classes/session";
 import { Session, Target, Serie} from "../dsc/classes/session";
 import { DscAPI_Token } from "../dsc/api";
 
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-dsv',
@@ -14,7 +15,7 @@ import { DscAPI_Token } from "../dsc/api";
 })
 export class DSVComponent implements OnInit {
 
-
+  enableEdit: boolean;
 
   @Input() fullWidth: number;
   @Input() fullHeight: number;
@@ -65,6 +66,9 @@ export class DSVComponent implements OnInit {
   teams = {};
 
   constructor(dsvAPI: DsvApiService, @Inject(DscAPI_Token) public dscAPI: DscGatewayInterface) {
+    
+    this.enableEdit = environment.enableEdit;
+    
     dsvAPI.connected.subscribe(connected => console.log("isConnected", connected))
     dsvAPI.data.subscribe(onlineLines => {
       if (onlineLines != null) {
