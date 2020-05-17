@@ -4,8 +4,8 @@
     <app-target fxFlex="40" [line]="session.line" [target]="target" [series]="currentSeries" [selectedShotIndex]="selectedShotIndex" [has_trial_corner]="has_trial_corner" [width]="'100%'" [height]="'100%'"></app-target>
     <div fxFlex fxLayout="column" fxLayoutAlign="space-evenly">
       <div fxFlex="nogrow">
-        <p [ngClass]="nameFontClass">{{session.user.firstName}} {{session.user.lastName}}</p>
-        <p [ngClass]="vereinFontClass">{{session.user.verein}} {{session.user.manschaft}}</p>
+        <p fittext [fontUnit]="'vmin'" [maxFontSize]="'2.4'" [ngClass]="nameFontClass">{{session.user.firstName}} {{session.user.lastName}}</p>
+        <p fittext [fontUnit]="'vmin'" [maxFontSize]="'2.4'" [ngClass]="vereinFontClass">{{session.user.verein}} {{session.user.manschaft}}</p>
       </div>
       
       <div fxLayout="row wrap">

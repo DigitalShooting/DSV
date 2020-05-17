@@ -35,7 +35,8 @@ export class Part {
 }
 export class PartTime {
   enabled: boolean;
-  // TODO
+  duration: number;
+  end: number;
 }
 
 export class Serie {

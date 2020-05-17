@@ -1,9 +1,13 @@
 <div class="dsc_detail" fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="1vh" style="height:100%;">
 
-  <div fxFlex="12" class="navbar navbarTop" fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="1vh" *ngIf="session">
+  <div fxFlex="12vmin" class="navbar navbarTop" fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="1vh" *ngIf="session">
     <img fxFlex="0 0 12vmin" style="object-fit: contain;" src="/assets/logo.png">
     <app-clock fxFlex></app-clock>
-    <!-- <app-time fxFlex [session]="session"></app-time> -->
+    <app-time
+      fxFlex
+      *ngIf="activePart.time.enabled === true"
+      [session]="session"
+    ></app-time>
     <app-shots
       fxFlex
       *ngIf="activePart.anzahl > 0"
@@ -50,12 +54,12 @@
   </div>
 
   <div fxFlex="12" class="navbar navbarBottom" fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="1vh" *ngIf="session">
-    <app-user fxFlex [user]="session.user" [config]="config"></app-user>
-    <app-club fxFlex *ngIf="session.user.verein != ''" [user]="session.user"></app-club>
-    <app-disciplin fxFlex [disziplin]="session.disziplin" [config]="config" [(openMenu)]="hasOpenMenu"></app-disciplin>
+    <app-user fxFlex="1 0 0" [user]="session.user" [config]="config"></app-user>
+    <app-club fxFlex="1 0 0" *ngIf="session.user.verein != ''" [user]="session.user"></app-club>
+    <app-disciplin fxFlex="1 0 0" [disziplin]="session.disziplin" [config]="config" [(openMenu)]="hasOpenMenu"></app-disciplin>
     <!-- <app-new-target fxFlex class="button "></app-new-target> -->
     <!-- <app-actions fxFlex [(openMenu)]="hasOpenMenu"></app-actions> -->
-    <app-part fxFlex [session]="session"></app-part>
+    <app-part fxFlex="1 0 0" [session]="session"></app-part>
   </div>
 
 </div>

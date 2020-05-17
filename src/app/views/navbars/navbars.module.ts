@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from "@angular/flex-layout";
+import { AngularFittextModule } from 'angular-fittext';
 
 // Header components
 import { ClockComponent } from './clock/clock.component';
@@ -26,7 +27,7 @@ import { TargetModule } from '../target/target.module';
     UserComponent, ClubComponent, DisciplinComponent, NewTargetComponent, PartComponent, ActionsComponent
   ],
   imports: [
-    CommonModule, FlexLayoutModule, TargetModule,
+    CommonModule, FlexLayoutModule, TargetModule, AngularFittextModule,
   ],
   exports: [
     ClockComponent, TimeComponent, ShotsComponent, AverageComponent, SumComponent,

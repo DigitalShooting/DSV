@@ -52,7 +52,7 @@ export class DisciplinComponent implements OnInit {
   
   
   
-  menuTitle = "disciplin";
+  private menuTitle = "disciplin";
   @Output() openMenuChange = new EventEmitter();
   _openMenu = false;
   @Input() set openMenu(event) {
@@ -61,14 +61,14 @@ export class DisciplinComponent implements OnInit {
     }
   }
   toggleMenu() {
-    // this._openMenu = !this._openMenu;
-    // this.openMenuChange.emit({
-    //   state: this._openMenu,
-    //   menuTitle: this.menuTitle,
-    //   triggerClose: false,
-    // });
-    // // Update selected in case of change during open menu
-    // this.updateSelectedGroup();
+    this._openMenu = !this._openMenu;
+    this.openMenuChange.emit({
+      state: this._openMenu,
+      menuTitle: this.menuTitle,
+      triggerClose: false,
+    });
+    // Update selected in case of change during open menu
+    this.updateSelectedGroup();
   }
   
   ngOnChanges() {
@@ -80,7 +80,7 @@ export class DisciplinComponent implements OnInit {
     this.dscAPI.setDisciplin(disciplin);
   }
 
-  dscAPI: DscApiService;
+  private dscAPI: DscApiService;
   constructor(dscAPI: DscApiService) {
     this.dscAPI = dscAPI;
   }

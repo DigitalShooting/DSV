@@ -117,12 +117,15 @@
 			
 			color: $main-text;
 			font-weight: 500;
+			white-space: nowrap;
+			padding: 0 0.5vmin 0 0.5vmin;
 	  }
 	  h4 {
 	    height: 30%;
 	    font-size: 2vmin;
 			color: $detail-text;
 			font-weight: 300;
+			white-space: nowrap;
 	  }
 	}
 

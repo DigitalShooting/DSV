@@ -13,13 +13,6 @@ export class UserComponent implements OnInit {
   @Input() config: Config;
 
   constructor() { }
-  
-  nameFontClass = "";
-  ngOnChanges() {
-    let userLength = this.user.firstName.length + this.user.lastName.length;
-    this.nameFontClass = "medium";
-    if (userLength > 20) this.nameFontClass = "small";
-  }
 
   ngOnInit() {
   }
