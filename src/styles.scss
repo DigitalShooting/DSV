@@ -45,6 +45,10 @@ h1, h2, h3, h4 {
 
 
 
+:root {
+  --dscBaseScale: 0.8;
+}
+
 .dsc-mini {
 	height: 100%;
 	padding: 0.5vmin 0.5vmin 0.5vmin 0.5vmin;

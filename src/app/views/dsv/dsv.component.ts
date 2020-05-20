@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, HostBinding, Inject } from '@angular/core';
 
+
 import { DsvApiService } from "../../dsv-api.service";
 import { DscGatewayInterface, OnlineLinesLine } from "../../classes/session";
 
@@ -84,7 +85,24 @@ export class DSVComponent implements OnInit {
 	}
 
   ngOnInit(): void {
+    window.addEventListener('load', this.onResize.bind(this), false);
+		window.addEventListener('resize', this.onResize.bind(this), false);
+    this.updateDimensions();
     this.calcXY();
+  }
+  
+  updateDimensionsTimeout: number;
+  onResize() {
+    clearTimeout(this.updateDimensionsTimeout);
+    this.updateDimensionsTimeout = setTimeout(() => {
+      this.updateDimensions();
+    }, 250);
+  }
+  
+  updateDimensions() {
+    this.fullWidth = window.innerWidth*window.devicePixelRatio;
+    this.fullHeight = window.innerHeight*window.devicePixelRatio;
+    console.log("update dim", this.width, this.height);
   }
   
   

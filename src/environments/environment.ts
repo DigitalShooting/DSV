@@ -6,8 +6,8 @@ export const environment = {
   production: false,
   enableEdit: true,
   // serverURL: "ws://10.1.0.80:5008",
-  // serverURL: (_) => "http://10.1.0.80:4000",
-  serverURL: (_) => "https://live.diana-dettingen.de:40621",
+  serverURL: (_) => "http://10.1.0.80:4000",
+  // serverURL: (_) => "https://live.diana-dettingen.de:40621",
   // serverURL: "ws://10.1.0.134:3008",
 };
 

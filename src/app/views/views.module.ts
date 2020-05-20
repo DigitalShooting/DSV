@@ -4,8 +4,8 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { AngularFittextModule } from 'angular-fittext';
 
 import { DSVComponent } from './dsv/dsv.component';
-// import { TargetModule } from './target/target.module';
 import { DscMiniComponent } from './dsc-mini/dsc-mini.component';
+import { DscFullComponent } from './dsc-full/dsc-full.component';
 import { TeamMiniComponent } from './team-mini/team-mini.component';
 
 import { DscModule } from './dsc/dsc.module';
@@ -13,17 +13,15 @@ import { DscModule } from './dsc/dsc.module';
 @NgModule({
   declarations: [    
     DSVComponent,
-    DscMiniComponent, TeamMiniComponent,
+    DscMiniComponent, DscFullComponent, TeamMiniComponent,
   ],
   imports: [
     CommonModule,
-    // TargetModule,
     FlexLayoutModule, AngularFittextModule,
     DscModule,
   ],
   exports: [
     DSVComponent,
-    // TargetModule,
     DscModule,
   ],
 })

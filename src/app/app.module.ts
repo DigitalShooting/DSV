@@ -11,7 +11,7 @@ import { DscAPI_Token, DscAPIInterface } from "./views/dsc/api";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
