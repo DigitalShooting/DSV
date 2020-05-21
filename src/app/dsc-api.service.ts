@@ -7,7 +7,7 @@ import * as io from 'socket.io-client';
 
 import { DsvApiService } from "./dsv-api.service";
 import { OnlineLinesLine } from "./classes/session";
-import { Session, Config, DisciplinePart } from "./views/dsc/classes/session";
+import { Session, Config, DisciplinePart, DSCMessage } from "./views/dsc/classes/session";
 import { DscAPIInterface } from "./views/dsc/api";
 
 
@@ -62,6 +62,11 @@ export class DscApiService {
   private _status: ReplaySubject<boolean> = new ReplaySubject<boolean>();
   get status() {
     return this._status.asObservable();
+  }
+  
+  private _message: ReplaySubject<DSCMessage> = new ReplaySubject<DSCMessage>();
+  get message() {
+    return this._message.asObservable();
   }
 
   constructor(private route: ActivatedRoute, private dsvAPI: DsvApiService) {
