@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { DsvApiService } from "../../dsv-api.service";
-import { DscGatewayInterface, OnlineLinesLine, OnlineLines } from "../../classes/session";
+import { DscGatewayInterface, OnlineLinesLine, OnlineLines, OnlineLinesUpdate } from "../../classes/session";
 
 // import { Session, Target, Serie} from "../dsc/classes/session";
 import { DscAPI_Token } from "../dsc/api";
@@ -19,7 +19,7 @@ export class DscFullComponent implements OnInit {
   constructor(public dsvAPI: DsvApiService, private route: ActivatedRoute, @Inject(DscAPI_Token) public dscAPI: DscGatewayInterface) {}
 
   lineID: string;
-  onlineLines: OnlineLines;
+  onlineLinesUpdate: OnlineLinesUpdate;
   
   enableEdit = false;
 
@@ -29,15 +29,16 @@ export class DscFullComponent implements OnInit {
        this.lineID = params['lineID'];
        this.update();
     });
-    this.dsvAPI.data.subscribe(onlineLines => {
-      this.onlineLines = onlineLines;
+    this.dsvAPI.data.subscribe(onlineLinesUpdate => {
+      this.onlineLinesUpdate = onlineLinesUpdate;
       this.update();
     });
   }
   
   update() {
-    if (this.onlineLines != null && this.lineID != null) {
-      let line = this.onlineLines.lines[this.lineID];
+    if (this.lineID != null && this.onlineLinesUpdate != null && (this.lineID == this.onlineLinesUpdate.delta || this.onlineLinesUpdate.delta == null)) {
+      let onlineLines = this.onlineLinesUpdate.onlineLines;
+      let line = onlineLines.lines[this.lineID];
       if (line != null) {
         this.dscAPI.setDetail(line);
       }

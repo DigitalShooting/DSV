@@ -5,7 +5,7 @@ import { ReplaySubject } from "rxjs";
 // import ReconnectingWebSocket from "../../node_modules/reconnectingwebsocket/reconnecting-websocket.min.js";
 import * as io from 'socket.io-client';
 
-import { OnlineLines } from "./classes/session";
+import { OnlineLinesUpdate, OnlineLines } from "./classes/session";
 
 import { environment } from '../environments/environment';
 
@@ -24,7 +24,7 @@ export class DsvApiService {
   
   // current dsc session, or null if not connected
   private _onlineLines;
-  private _data: ReplaySubject<OnlineLines> = new ReplaySubject<OnlineLines>();
+  private _data: ReplaySubject<OnlineLinesUpdate> = new ReplaySubject<OnlineLinesUpdate>();
   get data() {
     return this._data.asObservable();
   }
@@ -56,7 +56,7 @@ export class DsvApiService {
 
     this.socket.on('onlineLines', (onlineLines) => {
       this._onlineLines = onlineLines;
-      this._data.next(onlineLines);
+      this._data.next(new OnlineLinesUpdate(onlineLines, null));
       console.log('onlineLines', onlineLines);
     });
     
@@ -64,7 +64,7 @@ export class DsvApiService {
       // console.log('setConfig', config);
       if (this._onlineLines && this._onlineLines.lines[config.line]) {
         this._onlineLines.lines[config.line].cache.setConfig = config.data;
-        this._data.next(this._onlineLines);
+        this._data.next(new OnlineLinesUpdate(this._onlineLines, config.line));
       }
     });
     
@@ -74,44 +74,15 @@ export class DsvApiService {
       // console.log('setData', data);
       if (this._onlineLines && this._onlineLines.lines[data.line]) {
         this._onlineLines.lines[data.line].cache.setData = data.data;
-        this._data.next(this._onlineLines);
+        this._data.next(new OnlineLinesUpdate(this._onlineLines, data.line));
       }
     });
     
     this.socket.on('setTeam', (data) => {
       // console.log('setTeam', data.team);
       this._onlineLines.teams[data.team.teamID] = data.team;
-      this._data.next(this._onlineLines);
+      this._data.next(new OnlineLinesUpdate(this._onlineLines, data.line));
     });
-    
-    
-		// this.socket.onmessage = (event) => {
-    //   console.log("onEvent", event);
-    // 
-		// 	try {
-		// 		let message = JSON.parse(event.data);
-    //     console.log(message);
-		// 		if (message.type == "full") {
-    //       this._lines = message.data.lines;
-    //       console.log("aaa", message.data.lines)
-		// 		}
-    //     else if (message.type == "delta") {
-    //       if (this._lines[message.data.line] != null) {
-    //         this._lines[message.data.line].cache.setData = message.data.data;
-		// 		  }
-    //       else {
-    //         // TODO request full
-    //       }
-    //     }
-    //     else if (message.type == "disconnect") {
-    //       delete this._lines[message.data.lineID]
-		// 		}
-    //     this._data.next(this._lines);
-		// 	}
-		// 	catch (err) {
-		// 		console.error(err)
-		// 	}
-		// }
     
   }
 }

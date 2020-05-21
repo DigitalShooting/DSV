@@ -7,6 +7,17 @@ export interface DscGatewayInterface extends DscAPIInterface {
 }
 
 
+export class OnlineLinesUpdate {
+  onlineLines: OnlineLines;
+  delta: string;
+  
+  constructor(onlineLines: OnlineLines, delta: string) {
+        this.onlineLines = onlineLines;
+        this.delta = delta;
+    }
+}
+
+
 
 export class OnlineLines {
   lines: any;

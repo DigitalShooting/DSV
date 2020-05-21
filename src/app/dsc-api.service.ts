@@ -71,8 +71,9 @@ export class DscApiService {
         this.hasKey = true;
       }
     })
-    dsvAPI.data.subscribe(onlineLines => {
-      if (onlineLines != null && this.line != null) {
+    dsvAPI.data.subscribe(onlineLinesUpdate => {
+      if (this.line != null && onlineLinesUpdate != null && (this.line.id == onlineLinesUpdate.delta || onlineLinesUpdate.delta == null)) {
+        let onlineLines = onlineLinesUpdate.onlineLines;
         let newLine = onlineLines.lines[this.line.id];
         if (newLine != null) {
           this.line = newLine;

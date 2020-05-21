@@ -68,7 +68,8 @@ export class DSVComponent implements OnInit {
 
   constructor(dsvAPI: DsvApiService, @Inject(DscAPI_Token) public dscAPI: DscGatewayInterface) {
     dsvAPI.connected.subscribe(connected => console.log("isConnected", connected))
-    dsvAPI.data.subscribe(onlineLines => {
+    dsvAPI.data.subscribe(onlineLinesUpdate => {
+      let onlineLines = onlineLinesUpdate.onlineLines;
       if (onlineLines != null) {
         let lines = {};
         Object.keys(onlineLines.lines).forEach(key => {
