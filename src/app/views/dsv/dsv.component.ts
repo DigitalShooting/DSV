@@ -69,18 +69,24 @@ export class DSVComponent implements OnInit {
   constructor(dsvAPI: DsvApiService, @Inject(DscAPI_Token) public dscAPI: DscGatewayInterface) {
     dsvAPI.connected.subscribe(connected => console.log("isConnected", connected))
     dsvAPI.data.subscribe(onlineLinesUpdate => {
-      let onlineLines = onlineLinesUpdate.onlineLines;
-      if (onlineLines != null) {
-        let lines = {};
-        Object.keys(onlineLines.lines).forEach(key => {
-          if (onlineLines.lines[key].online == true && onlineLines.lines[key].cache.setData != null) {
-            lines[key] = onlineLines.lines[key];
-          }
-        });
-        this.lines = lines;
-        this.teams = onlineLines.teams;
+      if (onlineLinesUpdate != null) {
+        let onlineLines = onlineLinesUpdate.onlineLines;
+        if (onlineLines != null) {
+          let lines = {};
+          Object.keys(onlineLines.lines).forEach(key => {
+            if (onlineLines.lines[key].online == true && onlineLines.lines[key].cache.setData != null) {
+              lines[key] = onlineLines.lines[key];
+            }
+          });
+          this.lines = lines;
+          this.teams = onlineLines.teams;
+        }
+        this.calcXY();
       }
-      this.calcXY();
+      else {
+        this.lines = {};
+        this.teams = {};
+      }
     });
     this.calcXY();
 	}
